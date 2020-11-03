@@ -12,9 +12,13 @@ see "requirements.txt"
 ```
 git clone https://github.com/h4ppyy/django-rest-sample
 cd django-rest-sample
+
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
+
+docker-compose up
+
 python manage.py runserver 0.0.0.0:8000
 ```
 ### django rest framework  
