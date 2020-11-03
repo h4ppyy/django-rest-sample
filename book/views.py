@@ -14,6 +14,30 @@ from book.models import *
 from book.serializers import BookSerializer
 
 
+@swagger_auto_schema(
+    methods=['get'], 
+    tags=['my custom tag'],
+    operation_summary="sss test",
+    operation_description="ddd test",
+    deprecated=False,
+    manual_parameters=[
+        openapi.Parameter(
+            'test', 
+            openapi.IN_QUERY, 
+            description="test manual param", 
+            type=openapi.TYPE_BOOLEAN
+        ),
+        openapi.Parameter(
+            'test2', 
+            openapi.IN_QUERY, 
+            description="test manual param", 
+            type=openapi.TYPE_BOOLEAN
+        )
+    ],
+    responses={
+        200: openapi.Response('hello world', BookSerializer)
+    }
+)
 @api_view(['GET'])
 def book_list(request):
     # query
@@ -28,6 +52,10 @@ def book_list(request):
 
 @swagger_auto_schema(
     methods=['post'], 
+    tags=['my custom tag'],
+    operation_summary="sss test",
+    operation_description="ddd test",
+    deprecated=False,
     request_body=BookSerializer, 
     responses={
         200: openapi.Response('hello world', BookSerializer)
