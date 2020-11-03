@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: django_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sample
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: password
+      TZ: 'Asia/Seoul'
+    volumes:
+      - ./sql/table.sql:/docker-entrypoint-initdb.d/table.sql
+    ports:
+    - 3306:3306
