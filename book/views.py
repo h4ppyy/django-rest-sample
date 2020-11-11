@@ -15,46 +15,10 @@ from book.serializers import BookSerializer
 
 
 @swagger_auto_schema(
-    methods=['get'], 
-    tags=['my custom tag'],
-    operation_summary="sss test",
-    operation_description="ddd test",
-    deprecated=False,
-    manual_parameters=[
-        openapi.Parameter(
-            'test', 
-            openapi.IN_QUERY, 
-            description="test manual param", 
-            type=openapi.TYPE_BOOLEAN
-        ),
-        openapi.Parameter(
-            'test2', 
-            openapi.IN_QUERY, 
-            description="test manual param", 
-            type=openapi.TYPE_BOOLEAN
-        )
-    ],
-    responses={
-        200: openapi.Response('hello world', BookSerializer)
-    }
-)
-@api_view(['GET'])
-def book_list(request):
-    # query
-    books = Book.objects.all()
-    
-    # serialize
-    serializer = BookSerializer(books, many=True)
-    book_list = serializer.data
-
-    return JsonResponse({'result_code': 200, 'result_data': book_list})
-
-
-@swagger_auto_schema(
     methods=['post'], 
     tags=['my custom tag'],
-    operation_summary="sss test",
-    operation_description="ddd test",
+    operation_summary="book summary",
+    operation_description="book desc",
     deprecated=False,
     request_body=BookSerializer, 
     responses={
@@ -62,75 +26,40 @@ def book_list(request):
     }
 )
 @api_view(['POST'])
-def book_create(request):
-    # parameter
-    book_name = request.data['book_name']
-
-    # query
-    Book(book_name=book_name, created_at=datetime.datetime.now()).save()
-
-    return JsonResponse({'result': 200})
+def book_v1(request):
+    print('v1')
+    return JsonResponse({'result': 'v1'})
 
 
-'''
-class BooksViewSet(viewsets.ViewSet):
+@swagger_auto_schema(
+    methods=['post'], 
+    tags=['my custom tag'],
+    operation_summary="book summary",
+    operation_description="book desc",
+    deprecated=False,
+    request_body=BookSerializer, 
+    responses={
+        200: openapi.Response('hello world', BookSerializer)
+    }
+)
+@api_view(['POST'])
+def book_v2(request):
+    print('v2')
+    return JsonResponse({'result': 'v2'})
 
-    serializer_class = BookSerializer
 
-    def list(self, request, format=None):
-        # query
-        books = Book.objects.all()
-        
-        # serialize
-        serializer = BookSerializer(books, many=True)
-        book_list = serializer.data
-
-        return Response({'result_code': 200, 'result_data': book_list})
-
-    def retrieve(self, request, pk=None):
-        # query
-        book = Book.objects.get(id=pk)
-        
-        # serialize
-        serializer = BookSerializer(book)
-        book_data = serializer.data
-
-        return Response({'result_code': 200, 'result_data': book_data})
-
-    # test_param = openapi.Parameter(
-    #     'test', 
-    #     openapi.IN_BODY, 
-    #     description="test manual param", 
-    #     type=openapi.TYPE_OBJECT
-    # )
-    # user_response = openapi.Response('response description', BookSerializer)
-    # @swagger_auto_schema(method='post', manual_parameters=[test_param], responses={200: user_response})
-    @swagger_auto_schema(methods=['post'], request_body=BookSerializer)
-    @api_view(['POST'])
-    def create(self, request, pk=None):
-        # parameter
-        book_name = request.data['book_name']
-
-        # query
-        Book(book_name=book_name, created_at=datetime.datetime.now()).save()
-
-        return Response({'result': 200})
-
-    def update(self, request, pk=None):
-        # parameters
-        book_name = request.data['book_name']
-
-        # query
-        book = Book.objects.get(id=pk)
-        book.book_name = book_name
-        book.save()
-
-        return Response({'result': 200})
-
-    def destroy(self, request, pk=None):
-        # query
-        book = Book.objects.get(id=pk)
-        book.delete()
-
-        return Response({'result': 200})
-'''
+@swagger_auto_schema(
+    methods=['post'], 
+    tags=['my custom tag'],
+    operation_summary="book summary",
+    operation_description="book desc",
+    deprecated=False,
+    request_body=BookSerializer, 
+    responses={
+        200: openapi.Response('hello world', BookSerializer)
+    }
+)
+@api_view(['POST'])
+def book_v3(request):
+    print('v3')
+    return JsonResponse({'result': 'v3'})
